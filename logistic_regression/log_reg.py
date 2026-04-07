@@ -1,7 +1,7 @@
 import numpy as np
 
 class LogisticRegression:
-    def __init__(self, lr=0.01, n_iters=3000):
+    def __init__(self, lr=0.01, n_iters=1000):
         self.lr = lr
         self.n_iters = n_iters
         self.w = None
@@ -24,6 +24,9 @@ class LogisticRegression:
 
             self.w -= self.lr * dw
             self.b -= self.lr * db
+
+            if (i + 1) % 100 == 0:
+                print(f"Iteration {i + 1}/{self.n_iters}, Loss: {loss:.4f}")
 
     def predict(self, X):
         z = np.dot(X, self.w) + self.b

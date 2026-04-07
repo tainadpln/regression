@@ -1,1 +1,1 @@
-# Đây là repository chứa hai model Softmax Regression và Logistic Regression được code lại từ đầu!
+Nothing to see here. Hope you have a nice day!
