@@ -1,20 +1,20 @@
 import numpy as np
 
-class SoftmaxRegression:
-    def __init__(self, n_classes, lr=0.01, n_iters=1000):
-        self.n_classes = n_classes
+class MySoftmaxRegression:
+    def __init__(self, n_classes, lr=0.01, n_iters=3000):
         self.lr = lr
         self.n_iters = n_iters
-        self.W = None
+        self.w = None
         self.b = None
         self.losses = []
+        self.n_classes = n_classes
     
     def softmax(self, z):
         e_z = np.exp(z - np.max(z, axis=1, keepdims=True))
         return e_z / np.sum(e_z, axis=1, keepdims=True)
     
     def forward(self, X):
-        z = np.dot(X, self.W) + self.b
+        z = np.dot(X, self.w) + self.b
         return self.softmax(z)
     
     def compute_loss(self, y_pred, y):
@@ -35,9 +35,8 @@ class SoftmaxRegression:
         return dW, db
     
     def fit(self, X, y):
-        m, n_features = X.shape
-        
-        self.W = np.zeros((n_features, self.n_classes))
+        num_samples, num_features = X.shape
+        self.w = np.random.randn(num_features, self.n_classes) * 0.01
         self.b = np.zeros((1, self.n_classes))
         
         # Huấn luyện
@@ -49,7 +48,7 @@ class SoftmaxRegression:
             
             dW, db = self.backward(X, y_pred, y)
             
-            self.W -= self.lr * dW
+            self.w -= self.lr * dW
             self.b -= self.lr * db
             
             if (i + 1) % 100 == 0:
